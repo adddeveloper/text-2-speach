@@ -1,10 +1,10 @@
 // voice
 var print = console.log;
 var voiceSelect = document.getElementById("voiceSelect");
-var voices__ = window.speechSynthesis.getVoices();
-voices__ = window.speechSynthesis.getVoices();
+var voices__;
 
 function setVoice(){
+    voices__ = window.speechSynthesis.getVoices();
     print(voices__, (window.speechSynthesis.getVoices))
     voiceSelect.innerHTML = "";
     voices__.forEach((voice, i) => {
@@ -15,17 +15,13 @@ function setVoice(){
             option__.selected = true;
         }
         voiceSelect.appendChild(option__);
-        console.log("done")
     });
 }
-var clicked_already = false;
-// setVoice();
-voiceSelect.addEventListener("click", ()=>{
-    if(!clicked_already){
-        setVoice();
-        clicked_already = true;
+window.addEventListener("load", ()=>[
+    window.speechSynthesis.onvoiceschanged = function() {
+        setVoice()
     }
-});
+])
 
 // speak
 function speaker(words){
@@ -116,4 +112,3 @@ switch_.addEventListener("click", ()=>{
         '</svg>';
     }
 });
-// switch_.click();
