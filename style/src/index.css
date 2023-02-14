@@ -1,0 +1,71 @@
+@font-face {
+    font-family: 'comfortaa';
+    src: url('/style/Comfortaa-VariableFont_wght.ttf');
+}
+textarea{
+    width: 95vw;
+    height: 90vh;
+    margin: 0;
+    margin: 1rem 1rem 1rem 2rem;
+    outline: none;
+    border: white 2px solid;
+    padding: .5rem 0 0 .5rem;
+}
+
+a{
+    color: white;
+}
+
+*{
+    font-family: 'comfortaa';
+    background-color: transparent;
+}
+
+#dbrand{
+    text-decoration: none;
+    font-size: 1.5rem;
+}
+
+#download, #submit, #switch{
+    color: white;
+    padding: 1rem;
+    border: white 2px solid;
+    outline: none;
+    border-radius: 100%;
+}
+#download > svg, #submit > svg, #switch > svg{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* ------------------------------------- scroll -------------------------- */
+::-webkit-scrollbar {
+    display: flex;
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-button {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 20px 10px;
+    background: #333;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: black;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+::-webkit-resizer {
+    background: transparent;
+}
