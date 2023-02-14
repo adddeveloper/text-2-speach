@@ -27,7 +27,7 @@ window.addEventListener("load", ()=>[
 function speaker(words){
     if ('speechSynthesis' in window ) {
         var utterance = new SpeechSynthesisUtterance(words);
-        utterance.voice = voiceSelect.value;
+        utterance.voice = voiceSelect.children[voiceSelect.selectedIndex].value;
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
