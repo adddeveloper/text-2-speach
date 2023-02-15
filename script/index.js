@@ -1,11 +1,9 @@
 // voice
-var print = console.log;
 var voiceSelect = document.getElementById("voiceSelect");
 var voices__;
 
 function setVoice(){
     voices__ = window.speechSynthesis.getVoices();
-    print(voices__, (window.speechSynthesis.getVoices))
     voiceSelect.innerHTML = "";
     voices__.forEach((voice, i) => {
         var option__ = document.createElement("option");
@@ -17,17 +15,16 @@ function setVoice(){
         voiceSelect.appendChild(option__);
     });
 }
-window.addEventListener("load", ()=>[
-    window.speechSynthesis.onvoiceschanged = function() {
-        setVoice()
-    }
-])
+window.speechSynthesis.onvoiceschanged = function() {
+    setVoice()
+}
 
 // speak
 function speaker(words){
     if ('speechSynthesis' in window ) {
         var utterance = new SpeechSynthesisUtterance(words);
-        utterance.voice = voiceSelect.children[voiceSelect.selectedIndex].value;
+        utterance.voice = voices__[voiceSelect.selectedIndex];
+        utterance.rate = 1;
         window.speechSynthesis.speak(utterance);
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
