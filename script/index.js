@@ -22,10 +22,28 @@ window.speechSynthesis.onvoiceschanged = function() {
 // speak
 function speaker(words){
     if ('speechSynthesis' in window ) {
-        var utterance = new SpeechSynthesisUtterance(words);
-        utterance.voice = voices__[voiceSelect.selectedIndex];
-        utterance.rate = 1;
-        window.speechSynthesis.speak(utterance);
+        // var utterance = new SpeechSynthesisUtterance(words);
+        // utterance.voice = voices__[voiceSelect.selectedIndex];
+        // utterance.rate = 1;
+        // window.speechSynthesis.speak(utterance);
+
+        let ttsRecorder = new SpeechSynthesisRecorder({
+            text: words, 
+            utteranceOptions: {
+              voice: voices__[voiceSelect.selectedIndex],
+              rate: 1
+            }
+        });
+        ttsRecorder.start()
+        .then(tts => tts.blob())
+        .then(({ tts, data }) => {
+            tts.audioNode.src = URL.createObjectURL(blob);
+            tts.audioNode.title = tts.utterance.text;
+            tts.audioNode.onloadedmetadata = () => {
+                console.log(tts.audioNode.duration);
+                tts.audioNode.play();
+            }
+        })
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
     }
