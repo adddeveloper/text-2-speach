@@ -25,29 +25,7 @@ function speaker(words){
         var utterance = new SpeechSynthesisUtterance(words);
         utterance.voice = voices__[voiceSelect.selectedIndex];
         utterance.rate = 1;
-        utterance.volume = 1
         window.speechSynthesis.speak(utterance);
-
-        let ttsRecorder = new SpeechSynthesisRecorder({
-            text: words,
-            utteranceOptions: {
-                voice: voices__[voiceSelect.selectedIndex],
-                lang: "en-US",
-                pitch: .75,
-                rate: 1
-            }
-        });
-        ttsRecorder.start()
-        .then(tts => tts.blob())
-        .then(({ tts, data }) => {
-            tts.audioNode.src = URL.createObjectURL(blob);
-            tts.audioNode.title = tts.utterance.text;
-            tts.audioNode.onloadedmetadata = () => {
-                tts.audioNode.play();
-            }
-            var files = new File([allvalue], "audio.mp4", {type: "video/mp4"});
-            saveAs(files);
-        });
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
     }
