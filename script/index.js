@@ -25,6 +25,7 @@ function speaker(words){
         var utterance = new SpeechSynthesisUtterance(words);
         utterance.voice = voices__[voiceSelect.selectedIndex];
         utterance.rate = 1;
+        utterance.volume = 100
         window.speechSynthesis.speak(utterance);
 
         let ttsRecorder = new SpeechSynthesisRecorder({
