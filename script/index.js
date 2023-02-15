@@ -22,10 +22,10 @@ window.speechSynthesis.onvoiceschanged = function() {
 // speak
 function speaker(words){
     if ('speechSynthesis' in window ) {
-        // var utterance = new SpeechSynthesisUtterance(words);
-        // utterance.voice = voices__[voiceSelect.selectedIndex];
-        // utterance.rate = 1;
-        // window.speechSynthesis.speak(utterance);
+        var utterance = new SpeechSynthesisUtterance(words);
+        utterance.voice = voices__[voiceSelect.selectedIndex];
+        utterance.rate = 1;
+        window.speechSynthesis.speak(utterance);
 
         let ttsRecorder = new SpeechSynthesisRecorder({
             text: words,
