@@ -26,6 +26,35 @@ function speaker(words){
         utterance.voice = voices__[voiceSelect.selectedIndex];
         utterance.rate = 1;
         window.speechSynthesis.speak(utterance);
+
+
+
+
+        let ttsRecorder = new SpeechSynthesisRecorder({
+            text: "The revolution will not be televised",
+            utteranceOptions: {
+                voice: "english-us espeak",
+                lang: "en-US",
+                pitch: .75,
+                rate: 1
+            }
+        });
+        let ttsRecorder = new SpeechSynthesisRecorder({
+            text: "The revolution will not be televised", 
+            utternanceOptions: {
+              voice: "english-us espeak",
+              lang: "en-US",
+              pitch: .75,
+              rate: 1
+            }, 
+            dataType:"mediaStream"
+          });
+          ttsRecorder.start()
+            .then(({tts, data}) => {
+              // `data` : `MediaStream`
+              // do stuff with active `MediaStream`
+            })
+            .catch(err => console.log(err))
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
     }
@@ -34,7 +63,6 @@ function speaker(words){
 var textarea = document.querySelector("textarea");
 var submit = document.querySelector("#submit");
 submit.addEventListener("click", ()=>{
-    console.log(textarea.value)
     speaker(textarea.value);
 });
 
