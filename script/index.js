@@ -34,6 +34,7 @@ function speaker(words){
                 voice: voices__[voiceSelect.selectedIndex],
                 lang: "en-US",
                 pitch: .75,
+                volume: 100,
                 rate: 1
             }
         });
