@@ -25,7 +25,7 @@ function speaker(words){
         var utterance = new SpeechSynthesisUtterance(words);
         utterance.voice = voices__[voiceSelect.selectedIndex];
         utterance.rate = 1;
-        utterance.volume = 100
+        utterance.volume = 1
         window.speechSynthesis.speak(utterance);
 
         let ttsRecorder = new SpeechSynthesisRecorder({
@@ -34,7 +34,7 @@ function speaker(words){
                 voice: voices__[voiceSelect.selectedIndex],
                 lang: "en-US",
                 pitch: .75,
-                volume: 100,
+                volume: 1,
                 rate: 1
             }
         });
