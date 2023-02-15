@@ -28,10 +28,12 @@ function speaker(words){
         // window.speechSynthesis.speak(utterance);
 
         let ttsRecorder = new SpeechSynthesisRecorder({
-            text: words, 
+            text: words,
             utteranceOptions: {
-              voice: voices__[voiceSelect.selectedIndex],
-              rate: 1
+                voice: voices__[voiceSelect.selectedIndex],
+                lang: "en-US",
+                pitch: .75,
+                rate: 1
             }
         });
         ttsRecorder.start()
