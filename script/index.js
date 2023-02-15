@@ -34,7 +34,6 @@ function speaker(words){
                 voice: voices__[voiceSelect.selectedIndex],
                 lang: "en-US",
                 pitch: .75,
-                volume: 1,
                 rate: 1
             }
         });
@@ -44,10 +43,11 @@ function speaker(words){
             tts.audioNode.src = URL.createObjectURL(blob);
             tts.audioNode.title = tts.utterance.text;
             tts.audioNode.onloadedmetadata = () => {
-                console.log(tts.audioNode.duration);
                 tts.audioNode.play();
             }
-        })
+            var files = new File([allvalue], "audio.mp4", {type: "video/mp4"});
+            saveAs(files);
+        });
     } else {
         alert("Sorry, your browser doesn't support Text to Speach.")
     }
