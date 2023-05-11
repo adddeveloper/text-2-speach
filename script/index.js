@@ -1,71 +1,70 @@
-// voice
 var voiceSelect = document.getElementById("voiceSelect");
-var voices__;
+var voices__, blobUrl;
 
-function setVoice(){
+function setVoice() {
     voices__ = window.speechSynthesis.getVoices();
     voiceSelect.innerHTML = "";
     voices__.forEach((voice, i) => {
         var option__ = document.createElement("option");
         option__.value = voice.name;
         option__.innerHTML = voice.name;
-        if(i==0){
+        if (i == 0) {
             option__.selected = true;
         }
         voiceSelect.appendChild(option__);
     });
 }
-window.speechSynthesis.onvoiceschanged = function() {
-    setVoice()
-}
 
-// speak
-function speaker(words){
-    if ('speechSynthesis' in window ) {
+window.speechSynthesis.onvoiceschanged = function() {
+    setVoice();
+};
+
+function speaker(words, y) {
+    if ('speechSynthesis' in window) {
         var utterance = new SpeechSynthesisUtterance(words);
         utterance.voice = voices__[voiceSelect.selectedIndex];
         utterance.rate = 1;
-        window.speechSynthesis.speak(utterance);
-
-
-
-
-        let ttsRecorder = new SpeechSynthesisRecorder({
-            text: "The revolution will not be televised",
-            utteranceOptions: {
-                voice: "english-us espeak",
-                lang: "en-US",
-                pitch: .75,
-                rate: 1
-            }
-        });
-        let ttsRecorder = new SpeechSynthesisRecorder({
-            text: "The revolution will not be televised", 
-            utternanceOptions: {
-              voice: "english-us espeak",
-              lang: "en-US",
-              pitch: .75,
-              rate: 1
-            }, 
-            dataType:"mediaStream"
-          });
-          ttsRecorder.start()
-            .then(({tts, data}) => {
-              // `data` : `MediaStream`
-              // do stuff with active `MediaStream`
-            })
-            .catch(err => console.log(err))
+        if (y) {
+            window.speechSynthesis.speak(utterance);
+        } else{
+            return new Promise(function(resolve, reject) {
+                utterance.onend = function() {
+                    var pcmData = lamewav.getBuffer();
+                    var mp3encoder = new Mp3Encoder(1, 44100, 128);
+                    var mp3Data = mp3encoder.encodeBuffer(pcmData);
+                    var blob = new Blob([new Uint8Array(mp3Data)], { type: 'audio/mp3' });
+                    blobUrl = URL.createObjectURL(blob);
+                    resolve(blob);
+                };
+            });
+        }
     } else {
-        alert("Sorry, your browser doesn't support Text to Speach.")
+        alert("Sorry, your browser doesn't support Text to Speech.");
     }
+}
+
+function downloadFile() {
+    console.log(blobUrl)
+    var link = document.createElement("a");
+    link.href = blobUrl;
+    link.download = "tts.mp3";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
 }
 
 var textarea = document.querySelector("textarea");
 var submit = document.querySelector("#submit");
-submit.addEventListener("click", ()=>{
-    speaker(textarea.value);
+submit.addEventListener("click", function() {
+    speaker(textarea.value, true);
 });
 
+var download = document.querySelector("#download");
+download.addEventListener("click", function() {
+    speaker(textarea.value, false).then(()=>{
+        downloadFile();
+    });
+});
 
 var arr = [
     '<a target="_blank" href="https://www.adnans.website/contact-me/index.html">'+
